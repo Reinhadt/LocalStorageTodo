@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Todo List</title>
+</head>
+<body>
+	
+	<div class="container">
+		<form>
+			<input type="text" placeholder="Shit to get done" class="cloaca">
+			<input type="submit" value="Pull the chain">
+		</form>
+		
+		<div class="msgSection">
+			<ul class="msgHere"></ul>
+		</div>
+	</div>
+
+
+	<script>
+		//shit to get done and shit done code here
+		//two modes: shit to get done and shit done
+		// USAR LOCALSTORAGE CON DIFERENTES NOMBRES EN SETITEM() PARA GUARDAR LO QUE YA ESTÁ HECHO Y LO NO HECHO TODAVÍA !!!!!!!! --> LA LOTERIAH!
+		const cloaca = document.querySelector('input[type="text"]');
+		const deposit = document.querySelector('.msgHere');
+		const formie = document.querySelector('form');
+
+		const storage = localStorage;
+		const task = [];
+
+
+		function loadStorage(){
+
+			console.log(storage);
+
+			const tareas = JSON.parse(storage.tasks);
+
+			const lay = tareas.map( tarea => {
+				console.log(tarea.todo);
+			})
+
+
+		}
+
+		function saveShit(things){
+
+			tareas = {};
+			tareas.todo = s;
+			tareas.done = false;
+
+			task.push(tareas);
+
+			console.log(task);
+
+			storage.setItem('tasks', JSON.stringify(task));
+
+		}
+
+
+		function renderShit(s){
+
+			saveShit(s);
+			
+			
+			const last = deposit.firstChild;
+
+
+			const li = document.createElement('li');
+			li.textContent = s;
+
+			if(last == null){
+				deposit.appendChild(li);
+			}else{
+				deposit.insertBefore(li, last);
+			}
+
+			formie.reset();
+
+
+		}
+
+
+		function getShit(e){
+
+			e.preventDefault();
+			const shit = cloaca.value;
+
+			renderShit(shit);
+
+		}
+
+
+		formie.addEventListener('submit', getShit);
+
+		window.addEventListener('load', loadStorage);
+
+	</script>
+
+</body>
+</html>
