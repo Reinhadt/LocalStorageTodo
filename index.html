@@ -26,34 +26,41 @@
 		const deposit = document.querySelector('.msgHere');
 		const formie = document.querySelector('form');
 
-		const storage = localStorage;
-		const task = [];
+		const storage = JSON.parse(localStorage.getItem('tasks')) || [];
+		//const task = [];
 
 
-		function loadStorage(){
+		function loadStorage(st = []){
 
-			console.log(storage);
+			console.table(st);
 
-			const tareas = JSON.parse(storage.tasks);
+			//const tareas = JSON.parse(storage.tasks);
 
-			const lay = tareas.map( tarea => {
-				console.log(tarea.todo);
-			})
+			const lay = st.reverse().map( tarea => {
+				return `<li>${tarea.todo}</li>`
+			}).join('');
 
+			deposit.innerHTML = lay;
 
 		}
 
 		function saveShit(things){
 
+			//obtengo el localstorage
+			var entradas = JSON.parse(localStorage.getItem("tasks"));
+
 			tareas = {};
-			tareas.todo = s;
+			tareas.todo = things;
 			tareas.done = false;
 
-			task.push(tareas);
+			//localStorage.setItem('tasks', JSON.stringify(storage));
 
-			console.log(task);
+			//le hago push a entradas(localstorage)
+			entradas.push(tareas);
+			localStorage.setItem('tasks', JSON.stringify(entradas));
 
-			storage.setItem('tasks', JSON.stringify(task));
+			//console.log(task);
+
 
 		}
 
@@ -77,7 +84,7 @@
 
 			formie.reset();
 
-
+			console.table(storage);
 		}
 
 
@@ -93,7 +100,8 @@
 
 		formie.addEventListener('submit', getShit);
 
-		window.addEventListener('load', loadStorage);
+		//window.addEventListener('load', loadStorage);
+		loadStorage(storage);
 
 	</script>
 
